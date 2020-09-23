@@ -27,7 +27,23 @@ for i=1:size(faces,1)
     end
 end
 faces(logical(deleteFaces),:)=[];
-%For now, we do not remove the points 
+
+% check for unrefered points
+s=size(nodes);
+tic
+tests=1:s(1);
+tests(toKeep)=[];
+disp(['Remove before ' num2str(size(toKeep))]);
+for i =tests
+    if isempty(find(faces==i,1))
+        %found non used node 
+        toKeep(i)=1;
+        
+    end 
+end
+disp(['Remove after ' num2str(size(toKeep))]);
+toc
+% remove the points 
 nodes=nodes(~toKeep,:);
 [sf,sfi]=sort(faces(:));
 nodesGone=sort(find(toKeep));
