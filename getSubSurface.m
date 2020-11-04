@@ -3,7 +3,7 @@ function [nodes, faces,nodesKeeped] = getSubSurface(nodes, faces, data,subId)
 %   From a surface mesh, all nodes that are subId will be extraced 
 %   and remaining surface be 
 
-toKeep =(data==subId);
+toKeep =(data~=subId);
 idToKeep=1:size(data,1);
 idToKeep(~toKeep)=[];%This is a ordered list
 
