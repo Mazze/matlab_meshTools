@@ -4,7 +4,7 @@ function [nodes, faces,nodesKeeped] = getSubSurface(nodes, faces, data,subId)
 %   and remaining surface be 
 
 toKeep =(data~=subId);
-idToKeep=1:size(data,1);
+idToKeep=1:length(data);
 idToKeep(~toKeep)=[];%This is a ordered list
 
   
@@ -49,12 +49,15 @@ nodes=nodes(~toKeep,:);
 nodesGone=sort(find(toKeep));
 last=1;
 sfnew=sf;
-for i = 1:size(nodesGone,1)
-    last=find(sf>=nodesGone(i),1);
-    sfnew(last:end)=sfnew(last:end)-1;
-end 
-sf(sfi)=sfnew;
-faces=reshape(sf,size(faces));
+if ~isempty(nodesGone)
+    for i = 1:size(nodesGone,1)
+        last=find(sf>=nodesGone(i),1);
+        sfnew(last:end)=sfnew(last:end)-1;
+    end     
+
+    sf(sfi)=sfnew;
+    faces=reshape(sf,size(faces));
+end
     %faces(faces>idToKeep(i))=faces(faces>idToKeep(i))-1;    
     %nanvertices(i+1:end)=nanvertices(i+1:end)-1;
 nodesKeeped=~toKeep;
