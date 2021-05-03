@@ -24,6 +24,9 @@ if ~ isfield(mesh,'nodeToCell')
     [mesh] = getNodeToCellConnections(mesh);
 end
 
+if (size(mesh.faces,1)~= length(mesh.faces))    
+    mesh.faces=mesh.faces';
+end
 
 if ~isfield(mesh,newFieldname)
     mesh.(newFieldname)= zeros(max(size(mesh.(nameVertex))),1);
