@@ -1,4 +1,4 @@
-function [nodes, faces,nodesKeeped] = getSubSurface(nodes, faces, data,subId)
+function [nodes, faces,nodesKeeped,deleteFaces] = getSubSurface(nodes, faces, data,subId)
 %GETSUBSURFACE Extract the part which has subId
 %   From a surface mesh, all nodes that are subId will be extraced 
 %   and remaining surface be 
