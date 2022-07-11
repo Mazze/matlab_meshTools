@@ -10,6 +10,10 @@ else
     warning("No node points point ")
 end
 
+mfaces = mesh.faces;
+if size(mesh.faces,1)~=length(mesh.faces)
+    mfaces = mesh.faces';
+end
 if isempty(newFieldname)
     newFieldname="Filled Array";
 end
@@ -36,7 +40,7 @@ while ~isempty(newPoints)
         usePoint=newPoints(1);
         proccessedPoints=[proccessedPoints(:) ; usePoint];
         mesh.(newFieldname)(usePoint)=value;        
-        t=mesh.faces(mesh.nodeToCell{usePoint},:);
+        t=mfaces(mesh.nodeToCell{usePoint},:);
         newPoints=horzcat(newPoints,t(:)');
         newPoints=unique(newPoints);
         [~,inewPoints]=intersect(newPoints,proccessedPoints);
